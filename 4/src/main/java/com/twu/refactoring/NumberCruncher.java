@@ -1,6 +1,12 @@
 package com.twu.refactoring;
 
 public class NumberCruncher {
+
+    public static final String EVEN = "EVEN";
+    public static final String ODD = "ODD";
+    public static final String POSITIVE = "POSITIVE";
+    public static final String NEGATIVE = "NEGATIVE";
+
     private final int[] numbers;
 
     public NumberCruncher(int... numbers) {
@@ -8,34 +14,41 @@ public class NumberCruncher {
     }
 
     public int countEven() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number % 2 == 0) count++;
-        }
-        return count;
+        return countByOrder(EVEN);
     }
 
     public int countOdd() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number % 2 == 1) count++;
-        }
-        return count;
+        return countByOrder(ODD);
     }
 
     public int countPositive() {
+        return countByOrder(POSITIVE);
+    }
+
+    public int countNegative() {
+        return countByOrder(NEGATIVE);
+    }
+
+    public int countByOrder(String order) {
         int count = 0;
         for (int number : numbers) {
-            if (number >= 0) count++;
+            if (chooseOperation(order, number)) count++;
         }
         return count;
     }
 
-    public int countNegative() {
-        int count = 0;
-        for (int number : numbers) {
-            if (number < 0) count++;
+    public Boolean chooseOperation(String order, int number) {
+        switch (order) {
+            case EVEN:
+                return number % 2 == 0;
+            case ODD:
+                return number % 2 == 1;
+            case POSITIVE:
+                return number >= 0;
+            case NEGATIVE:
+                return number < 0;
+            default:
+                return false;
         }
-        return count;
     }
 }
