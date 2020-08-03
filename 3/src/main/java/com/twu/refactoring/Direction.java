@@ -1,48 +1,48 @@
 package com.twu.refactoring;
 
+import java.util.HashMap;
+
 public class Direction {
     private final char direction;
+
+    public static HashMap<Character, Character> rightMap = new HashMap<>();
+    public static HashMap<Character, Character> leftMap = new HashMap<>();
+
+    static {
+        rightMap.put('N', 'E');
+        rightMap.put('S', 'W');
+        rightMap.put('E', 'N');
+        rightMap.put('W', 'S');
+        leftMap.put('N', 'W');
+        leftMap.put('S', 'E');
+        leftMap.put('E', 'N');
+        leftMap.put('W', 'S');
+    }
 
     public Direction(char direction) {
         this.direction = direction;
     }
 
     public Direction turnRight() {
-        switch (direction) {
-            case 'N':
-                return new Direction('E');
-            case 'S':
-                return new Direction('W');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
-            default:
-                throw new IllegalArgumentException();
+        if (rightMap.get(direction) != null) {
+            return new Direction(rightMap.get(direction));
         }
+        throw new IllegalArgumentException();
     }
 
     public Direction turnLeft() {
-        switch (direction) {
-            case 'N':
-                return new Direction('W');
-            case 'S':
-                return new Direction('E');
-            case 'E':
-                return new Direction('N');
-            case 'W':
-                return new Direction('S');
-            default:
-                throw new IllegalArgumentException();
+        if (leftMap.get(direction) != null) {
+            return new Direction(leftMap.get(direction));
         }
+        throw new IllegalArgumentException();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
 
-        Direction direction1 = (Direction) o;
+        Direction direction1 = (Direction) object;
 
         if (direction != direction1.direction) return false;
 
