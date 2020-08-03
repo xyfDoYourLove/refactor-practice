@@ -11,6 +11,18 @@ public class Rental {
         this.daysRented = daysRented;
     }
 
+    public Boolean isTwoDayNewReleaseRental() {
+        if ((this.getMovie().getPriceCode() == Movie.NEW_RELEASE) && this.getDaysRented() > 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public StringBuffer showFigures(StringBuffer result, double thisAmount) {
+        result.append("\t" + this.getMovie().getTitle() + "\t" + thisAmount + "\n");
+        return result;
+    }
+
     public int getDaysRented() {
         return daysRented;
     }
